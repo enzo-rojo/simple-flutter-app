@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_flutter_app/screens/public/auth.dart';
+import 'package:simple_flutter_app/screens/public.dart';
 
 void main() => runApp(const App());
 
@@ -9,10 +9,10 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: AuthScreen(),
+      home: PublicScreen(),
     );
   }
 }

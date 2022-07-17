@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PasswordScreen extends StatefulWidget {
-  PasswordScreen({Key? key}) : super(key: key);
+  final Function(int) onChangeStep;
+
+  const PasswordScreen({Key? key, required this.onChangeStep}) : super(key: key);
 
   @override
   State<PasswordScreen> createState() => _PasswordScreenState();
@@ -9,7 +11,7 @@ class PasswordScreen extends StatefulWidget {
 
 class _PasswordScreenState extends State<PasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  late String _password;
+  late String _password = "";
 
   bool _isSecret = true;
 
@@ -22,7 +24,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               color: Colors.black,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => widget.onChangeStep(0),
             ),
           ),
           body: Center(

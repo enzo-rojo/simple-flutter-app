@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+  final Function(int) onChangeStep;
+
+  const AuthScreen({Key? key, required this.onChangeStep}) : super(key: key);
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -11,7 +13,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _formKey = GlobalKey<FormState>();
   final RegExp emailRegex = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
 
-  late String _email;
+  late String _email = "";
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +87,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           padding: const EdgeInsets.all(10.0),
                         ),
                         onPressed: (!emailRegex.hasMatch(_email)
-                          ? null
-                          : () {
-                            if (_formKey.currentState!.validate()) {
-                              // If the form is valid, we want to show the next screen
-                              print(_email);
-                            }
-                          }),
+                            ? null
+                            : () {
+                                if (_formKey.currentState!.validate()) {
+                                  // If the form is valid, we want to show the next screen
+                                  widget.onChangeStep(1);
+                                }
+                              }),
                         child: Text(
                           'Suivant',
                           style: TextStyle(fontSize: 20.0),

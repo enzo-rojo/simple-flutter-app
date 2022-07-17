@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TermScreen extends StatefulWidget {
-  TermScreen({Key? key}) : super(key: key);
+  final Function(int) onChangeStep;
+
+  const TermScreen({Key? key, required this.onChangeStep}) : super(key: key);
 
   @override
   State<TermScreen> createState() => _TermScreenState();
@@ -40,7 +42,7 @@ class _TermScreenState extends State<TermScreen> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               color: Colors.black,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => widget.onChangeStep(0),
             ),
           ),
           body: Padding(
@@ -71,7 +73,7 @@ class _TermScreenState extends State<TermScreen> {
                     padding: const EdgeInsets.all(10.0),
                     primary: Theme.of(context).primaryColor,
                   ),
-                  onPressed: _termReaded ? () => print('Readed') : null,
+                  onPressed: _termReaded ? () => widget.onChangeStep(2) : null,
                   child: Text(
                     'Accept'.toUpperCase(),
                     style: TextStyle(
