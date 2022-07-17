@@ -10,6 +10,7 @@ class PasswordScreen extends StatefulWidget {
 class _PasswordScreenState extends State<PasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   late String _password;
+
   bool _isSecret = true;
 
   @override
@@ -43,12 +44,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                           height: 10.0,
                         ),
                         TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
+                          validator:  (value) => value!.length < 6 
+                            ? 'Enter a password. 6 characters min are required.'
+                            : null,
                           onChanged:(value) => setState(() => _password = value),
                           obscureText: _isSecret,
                           decoration: InputDecoration(
