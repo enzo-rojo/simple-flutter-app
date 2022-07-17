@@ -9,6 +9,8 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final _formKey = GlobalKey<FormState>();
+  final RegExp emailRegex = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
+
   late String _email;
 
   @override
@@ -54,12 +56,10 @@ class _AuthScreenState extends State<AuthScreen> {
                         height: 10.0,
                       ),
                       TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                        validator: (value) =>
+                            value!.isEmpty || !emailRegex.hasMatch(value)
+                                ? 'Please enter a valid email'
+                                : null,
                         onChanged: (value) => setState(() => _email = value),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -84,12 +84,14 @@ class _AuthScreenState extends State<AuthScreen> {
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.all(10.0),
                         ),
-                        onPressed: (() {
-                          if (_formKey.currentState!.validate()) {
-                            // If the form is valid, we want to show the next screen
-                            print(_email);
-                          }
-                        }),
+                        onPressed: (!emailRegex.hasMatch(_email)
+                          ? null
+                          : () {
+                            if (_formKey.currentState!.validate()) {
+                              // If the form is valid, we want to show the next screen
+                              print(_email);
+                            }
+                          }),
                         child: Text(
                           'Suivant',
                           style: TextStyle(fontSize: 20.0),
