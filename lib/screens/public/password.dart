@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PasswordScreen extends StatefulWidget {
-  final Function(int) onChangeStep;
+  final Function(int?, String?) onChangeStep;
 
-  const PasswordScreen({Key? key, required this.onChangeStep}) : super(key: key);
+  const PasswordScreen({Key? key, required this.onChangeStep})
+      : super(key: key);
 
   @override
   State<PasswordScreen> createState() => _PasswordScreenState();
@@ -24,7 +25,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               color: Colors.black,
-              onPressed: () => widget.onChangeStep(0),
+              onPressed: () => widget.onChangeStep(0, null),
             ),
           ),
           body: Center(
@@ -46,10 +47,11 @@ class _PasswordScreenState extends State<PasswordScreen> {
                           height: 10.0,
                         ),
                         TextFormField(
-                          validator:  (value) => value!.length < 6 
-                            ? 'Enter a password. 6 characters min are required.'
-                            : null,
-                          onChanged:(value) => setState(() => _password = value),
+                          validator: (value) => value!.length < 6
+                              ? 'Enter a password. 6 characters min are required.'
+                              : null,
+                          onChanged: (value) =>
+                              setState(() => _password = value),
                           obscureText: _isSecret,
                           decoration: InputDecoration(
                               suffixIcon: InkWell(
@@ -78,7 +80,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 // If the form is valid, we want to show the next screen
-                                print(_password);
+                                widget.onChangeStep(null, _password);
                               }
                             },
                             child: Text('Continue'.toUpperCase(),

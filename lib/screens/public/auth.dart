@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
-  final Function(int) onChangeStep;
+  final Function(int, String) onChangeStep;
 
   const AuthScreen({Key? key, required this.onChangeStep}) : super(key: key);
 
@@ -91,7 +91,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             : () {
                                 if (_formKey.currentState!.validate()) {
                                   // If the form is valid, we want to show the next screen
-                                  widget.onChangeStep(1);
+                                  widget.onChangeStep(1, _email);
                                 }
                               }),
                         child: Text(
