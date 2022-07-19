@@ -26,4 +26,8 @@ class UserService {
 
     return userModel;
   }
+
+  Future<void> logout() async {
+    await _auth.signOut();
+  }
 }
