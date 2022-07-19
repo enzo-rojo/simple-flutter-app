@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_flutter_app/models/UserModel.dart';
+import 'package:simple_flutter_app/screens/dashboard/home.dart';
 import 'package:simple_flutter_app/screens/public/auth.dart';
 import 'package:simple_flutter_app/screens/public/password.dart';
 import 'package:simple_flutter_app/screens/public/term.dart';
@@ -41,7 +42,16 @@ class _PublicScreenState extends State<PublicScreen> {
 
           if (value != null) {
             UserModel userModel = UserModel(email: _email, password: value);
-            _userService.auth(userModel).then((value) => print(value.toJson()));
+            _userService.auth(userModel).then((value) => {
+                  if (value.uid != null)
+                    {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ))
+                    }
+                });
           }
         }),
       )

@@ -3,6 +3,12 @@ import 'package:simple_flutter_app/models/UserModel.dart';
 
 class UserService {
   FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Stream<UserModel> get user {
+    return _auth.authStateChanges().asyncMap((user) =>
+        UserModel(uid: user!.uid, email: user.email ?? "", password: ''));
+  }
+
   UserCredential? userCredential;
   Future<UserModel> auth(UserModel userModel) async {
     try {
