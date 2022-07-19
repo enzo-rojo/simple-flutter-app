@@ -1,3 +1,3 @@
 # simple-flutter-app
 
-A new Flutter project.
+A simple flutter app that uses firebase base authentication system
